@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pedro.encoder.input.video.CameraHelper
 import com.pedro.rtplibrary.view.OpenGlView
+import com.pedro.rtsp.rtsp.VideoCodec
 import com.pedro.rtsp.utils.ConnectCheckerRtsp
 import com.pedro.rtspserver.RtspServerCamera1
 import java.io.File
@@ -42,6 +43,8 @@ class CameraDemoActivity : AppCompatActivity(), ConnectCheckerRtsp, View.OnClick
 
         val surface: OpenGlView = findViewById(R.id.surfaceView)
         rtspServerCamera1 = RtspServerCamera1(surface, this, 1935)
+        rtspServerCamera1.setVideoCodec(VideoCodec.H264)
+        rtspServerCamera1.setLogs(false)
         surface.holder.addCallback(this)
     }
 
@@ -97,18 +100,14 @@ class CameraDemoActivity : AppCompatActivity(), ConnectCheckerRtsp, View.OnClick
         when (view.id) {
             R.id.b_start_stop -> if (!rtspServerCamera1.isStreaming) {
 
+                //帽子極限：1280, 720, 18, 2 * 1024 * 1024
                 val rotation = CameraHelper.getCameraOrientation(this@CameraDemoActivity)
-                if (rtspServerCamera1.isRecording || rtspServerCamera1.prepareAudio() && rtspServerCamera1.prepareVideo(640, 480, 18, 1024 * 1024, rotation)) {
+                if (rtspServerCamera1.isRecording || rtspServerCamera1.prepareAudio() && rtspServerCamera1.prepareVideo(1280, 720, 18, 2 * 1024 * 1024, rotation)) {
                     button.setText(R.string.stop_button)
                     rtspServerCamera1.startStream()
                     tvUrl.text = rtspServerCamera1.getEndPointConnection()
                 } else {
-                    Toast.makeText(
-                        this,
-                        "Error preparing stream, This device cant do it",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    Toast.makeText(this, "Error preparing stream, This device cant do it", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 button.setText(R.string.start_button)

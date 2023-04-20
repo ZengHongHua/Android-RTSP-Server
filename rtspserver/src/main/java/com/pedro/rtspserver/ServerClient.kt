@@ -37,6 +37,7 @@ open class ServerClient(
             commandsManager.setVideoInfo(sps!!, pps!!, vps)
         }
         commandsManager.setAuth(user, password)
+        commandsManager.protocol = Protocol.UDP
     }
 
     override fun run() {
