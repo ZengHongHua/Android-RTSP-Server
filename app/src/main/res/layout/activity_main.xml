@@ -7,9 +7,17 @@
     <Button
         android:id="@+id/b_camera_demo"
         android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:text="@string/camera_demo"
-        />
+        android:layout_centerInParent="true"
+        android:text="RTSP" />
+
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/b_camera_demo"
+        android:id="@+id/b_push_rtmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RTMP推流" />
+
 
 </RelativeLayout>

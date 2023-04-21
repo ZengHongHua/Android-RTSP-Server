@@ -10,6 +10,9 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 
+/**
+ * babazhn zengHongHua
+ */
 class MainActivity : AppCompatActivity() {
 
     private val permission = arrayOf(
@@ -32,6 +35,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val rtmpBtn :Button= findViewById(R.id.b_push_rtmp)
+        rtmpBtn.setOnClickListener {
+            if (!hasPermissions(this, *permission)) {
+                ActivityCompat.requestPermissions(this, permission, 1)
+            } else {
+                startActivity(Intent(this, PushRtmpActivity::class.java))
+            }
+        }
     }
 
     private fun hasPermissions(context: Context?, vararg permissions: String): Boolean {

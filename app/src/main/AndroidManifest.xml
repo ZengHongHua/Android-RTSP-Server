@@ -32,6 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.pedro.sample.CameraDemoActivity" />
+        <activity android:name=".PushRtmpActivity" />
 
 
     </application>
